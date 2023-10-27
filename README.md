@@ -38,4 +38,6 @@
 
         sudo docker run -e POSTRES_PASSWORD=123 --name ContainerPostgresNome -v PostgresVolume:/var/lib/postgresql/data -d ppostgres:latest
 
-<br> Pronto agora podemos seguir o mesmo passo a passo anterior para criar uma tabela e inserir coisas nela, e mesmo que por algum motivos nosso container seja apagado todos os dados ficarão salvos no nosso bolume denominado de PostgresVolume.
+<br> Pronto agora podemos seguir o mesmo passo a passo anterior para criar uma tabela e inserir coisas nela, e mesmo que por algum motivos nosso container seja apagado todos os dados ficarão salvos no nosso volume denominado de PostgresVolume.
+
+## Desafio 3: Criando container wordpress e mysql com docker compose 
