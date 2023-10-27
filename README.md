@@ -34,4 +34,6 @@
     insert into pessoa values(1, 'natan');
 <br> Pronto, mas agora podemos nos perguntar, em uma situação real onde eu tenha um banco dentro de um container, uma vez que preciso atualizar a versão desse banco ou por algum motivo eu precise reinstalar o que acontece com meus dados? Por esse motivo criei esse exemplo, em uma situação de estudo como essa, um simples banco criado dessa forma pode dar conta de tudo, mas quando pensamos na produção precisamos sempre de uma valvula de escape caso algo de errado em nosso projeto, esse é um dos motivos para existencia dos volumes em nossos containers ele pode trazer mais confiabilidade para nosso container e permitir que possamos atualizar e fazer outras coisas com nosso container sem comprometer nossos dados importantes.
 
-<br> Certo, mas como criamos um banco com volume? Para isso podemos utilizar a opção 
+<br> Certo, mas como criamos um banco com volume? Para isso podemos utilizar o parametro -v no nosso comando docker container run, vamos ver na pratica como fica:
+
+        sudo docker run -e POSTRES_PASSWORD=123 --name ContainerPostgresNome -v PostgresVolume:/var/lib/postgresql/data -d ppostgres:latest
