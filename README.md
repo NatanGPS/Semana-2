@@ -36,7 +36,7 @@
 
 <br> Certo, mas como criamos um banco com volume? Para isso podemos utilizar o parametro -v no nosso comando docker container run, vamos ver na pratica como fica:
 
-        sudo docker run -e POSTRES_PASSWORD=123 --name ContainerPostgresNome -v PostgresVolume:/var/lib/postgresql/data -d ppostgres:latest
+        sudo docker run -e POSTRES_PASSWORD=123 --name ContainerPostgresNome -v PostgresVolume:/var/lib/postgresql/data -d postgres:latest
 
 <br> Pronto agora podemos seguir o mesmo passo a passo anterior para criar uma tabela e inserir coisas nela, e mesmo que por algum motivos nosso container seja apagado todos os dados ficarão salvos no nosso volume denominado de PostgresVolume.
 
