@@ -41,3 +41,78 @@
 <br> Pronto agora podemos seguir o mesmo passo a passo anterior para criar uma tabela e inserir coisas nela, e mesmo que por algum motivos nosso container seja apagado todos os dados ficarão salvos no nosso volume denominado de PostgresVolume.
 
 ## Desafio 3: Criando container wordpress e mysql com docker compose 
+### Instalando docker compose: 
+<br> Primeiramente precisamos instalar o docker compose, para isso vamos utilizar a documentação do docker compose para isso podemos utilizar a instalação usando o repositorio deles no github, vamos começar, no terminal digite:
+
+        sudo yum update
+        sudo yum install docker-compose-plugin
+<br> Vamos conferir se tudo correu certo digitando: 
+
+        sudo docker compose version
+
+<br> Pronto! Nosso docker compose está devidamente instalado
+
+<br> Agora para configurar nossos containers que vamos subir usando o compose precisamos criar um diretorio com nome e local de nossa preferencia:
+
+        sudo mkdir wordpress
+<br> Vamos entrar em nosso diretorio e criar um arquivo chamado docker-compose.yml, para isso podemos utilizar a funação touch
+
+        cd wordpress
+        sudo touch docker-compose.yml
+<br> Agora abrimos o arquivo utilizando o editor de preferencia
+
+        sudo nano docker-compose.yl
+<br> Com nosso arquivo aberto podemos escrever nossas configurações de container da seguinte forma:
+
+        services:
+      db:
+        # We use a mariadb image which supports both amd64 & arm64 architecture
+        image: mariadb:10.6.4-focal
+        # If you really want to use MySQL, uncomment the following line
+        #image: mysql:8.0.27
+        command: '--default-authentication-plugin=mysql_native_password'
+        volumes:
+          - db_data:/var/lib/mysql
+        restart: always
+        environment:
+          - MYSQL_ROOT_PASSWORD=somewordpress
+          - MYSQL_DATABASE=wordpress
+          - MYSQL_USER=wordpress
+          - MYSQL_PASSWORD=wordpress
+        expose:
+          - 3306
+          - 33060
+      wordpress:
+        image: wordpress:latest
+        volumes:
+          - wp_data:/var/www/html
+        ports:
+          - 80:80
+        restart: always
+        environment:
+          - WORDPRESS_DB_HOST=db
+          - WORDPRESS_DB_USER=wordpress
+          - WORDPRESS_DB_PASSWORD=wordpress
+          - WORDPRESS_DB_NAME=wordpress
+    volumes:
+      db_data:
+      wp_data:
+<br> Podemos agora salvar o arquivo com Ctrl + O e sair usando Ctrl + X.
+<br> Agora para o proximo passo vamos nos certificar de estarmos no diretorio que criamos o arquivo, depois disso vamos digitar o seguinte comando para iniciar nossos containers
+
+        sudo docker compose up -d
+
+<br> Com o comando abaixo podemos verificar se os containers que criamos  estão ativos
+
+        sudo docker container ls
+
+<br> Se tudo correr bem voce pode simplesmente acessar em seu navegador sua pagina wordpress utilizando o seu_ip:porta, no meu caso fica assim
+
+        193.168.2.108:80 
+<br> Para verificar que nossos dados estão persistindo podemos desativar nossos containers e ativalo novamente para isso usamos os seguintes comandos em sequencia
+
+        sudo docker compose down
+        sudo docker compose up -d
+<br> Se o wordpress ainda está configurado significa que os dados estão persistindo em nossos volumes
+
+        
