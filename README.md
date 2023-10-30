@@ -1,6 +1,19 @@
 # Semana-2
 ## Desafio 1: Baixar e instalar Docker
+<br> Para começar vamos nos certificar que não temos nenhuma versao antiga que possa gerar conflito com nossa nova instalação
 
+        sudo yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
+<br> Agora podemos prosseguir instalando as dependencias, adicionando o repositorio e iniciando o docker em nossa vm, siga os seguintes comandos
+
+        sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+        sudo yum install docker-ce
+        sudo systemctl start docker
+        sudo systemctl enable docker
+
+<br> Agora voce pode confirmar se tudo está certo digitando o comando abaixo em seu terminal
+
+        docker --version
 ## Desafio 2: Criar uma imagem do postgreSQL rodar a imagem e persistir dados do banco em um volume:
 ### Primeiro etapa: Precisamos primeiramente criar nossa imagem do banco de dados, para isso podemos utilizar diversos comandos mas aqui vou o utlizar o pull:
 
